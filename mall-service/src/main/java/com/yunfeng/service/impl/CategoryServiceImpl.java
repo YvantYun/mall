@@ -1,10 +1,14 @@
 package com.yunfeng.service.impl;
 
 import com.yunfeng.mapper.CategoryMapper;
+import com.yunfeng.mapper.CategoryMapperCustom;
 import com.yunfeng.pojo.Category;
+import com.yunfeng.pojo.vo.CategoryVO;
 import com.yunfeng.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.weekend.WeekendSqls;
 
@@ -25,6 +29,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
 
+    @Autowired
+    private CategoryMapperCustom categoryMapperCustom;
+
+    @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public List<Category> queryAllRootLevelCat() {
         Example example = Example.builder(Category.class)
@@ -32,6 +40,13 @@ public class CategoryServiceImpl implements CategoryService {
                         .andEqualTo(Category::getType, 1))
                 .build();
         List<Category> result = categoryMapper.selectByExample(example);
+        return result;
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public List<CategoryVO> getSubCatList(Integer rootCateId) {
+        List<CategoryVO> result = categoryMapperCustom.getSubCatList(rootCateId);
         return result;
     }
 }

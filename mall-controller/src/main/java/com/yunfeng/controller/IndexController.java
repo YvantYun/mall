@@ -3,14 +3,17 @@ package com.yunfeng.controller;
 import com.yunfeng.enums.YesOrNo;
 import com.yunfeng.pojo.Carousel;
 import com.yunfeng.pojo.Category;
+import com.yunfeng.pojo.vo.CategoryVO;
 import com.yunfeng.service.CarouselService;
 import com.yunfeng.service.CategoryService;
 import com.yunfeng.utils.IMOOCJSONResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -55,5 +58,19 @@ public class IndexController {
         List<Category> list = categoryService.queryAllRootLevelCat();
         return IMOOCJSONResult.ok(list);
     }
+
+    @ApiOperation(value = "获取商品分类（二、三级分类）", notes = "获取商品分类（二、三级分类）",httpMethod = "GET")
+    @GetMapping("/subCat/{rootCatId}")
+    public IMOOCJSONResult subCat(
+            @ApiParam(name = "rootCatId", value = "一级分类id", required = true)
+            @PathVariable Integer rootCatId) {
+        if(rootCatId == null) {
+            return IMOOCJSONResult.errorMsg("分类不存在");
+        }
+
+        List<CategoryVO> list = categoryService.getSubCatList(rootCatId);
+        return IMOOCJSONResult.ok(list);
+    }
+
 
 }

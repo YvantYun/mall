@@ -1,6 +1,7 @@
 package com.yunfeng.service;
 
 import com.yunfeng.pojo.Category;
+import com.yunfeng.pojo.vo.CategoryVO;
 
 import java.util.List;
 
@@ -20,4 +21,11 @@ public interface CategoryService {
      * @return
      */
     List<Category> queryAllRootLevelCat();
+
+    /**
+     * 根据一级分类id查询子分类
+     * @param rootCateId
+     * @return
+     */
+    List<CategoryVO> getSubCatList(Integer rootCateId);
 }
