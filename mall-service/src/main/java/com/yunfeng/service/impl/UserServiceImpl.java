@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
+import tk.mybatis.mapper.weekend.WeekendSqls;
 
 import java.util.Date;
 
@@ -79,11 +80,20 @@ public class UserServiceImpl implements UserService {
     public Users queryUserForLogin(String username, String password) {
 
 
-        Example userExample = new Example(Users.class);
-        Example.Criteria userCriteria = userExample.createCriteria();
+        //Example userExample = new Example(Users.class);
+        //        //Example.Criteria userCriteria = userExample.createCriteria();
+        //        //
+        //        //userCriteria.andEqualTo("username", username);
+        //        //userCriteria.andEqualTo("password", password);
 
-        userCriteria.andEqualTo("username", username);
-        userCriteria.andEqualTo("password", password);
+        Example userExample = Example.builder(Users.class).where(
+                WeekendSqls.<Users>custom()
+                        .andEqualTo(Users::getUsername,username)
+                        .andEqualTo(Users::getPassword, password)
+
+        ).build();
+
+
 
         Users result = usersMapper.selectOneByExample(userExample);
 

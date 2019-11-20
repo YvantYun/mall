@@ -13,7 +13,7 @@ import java.util.List;
  * @since 2019-11-19
  */
 
-public interface CarouseService {
+public interface CarouselService {
 
     /**
      * 查询所有轮播图列表

@@ -1,6 +1,6 @@
 package com.yunfeng.service;
 
-import com.yunfeng.pojo.Carousel;
+import com.yunfeng.pojo.Category;
 
 import java.util.List;
 
@@ -13,12 +13,11 @@ import java.util.List;
  * @since 2019-11-19
  */
 
-public interface CarouselService {
+public interface CategoryService {
 
     /**
-     * 查询所有轮播图列表
-     * @param isShow
+     * 查询所有一级分类
      * @return
      */
-    List<Carousel> queryAll(Integer isShow);
+    List<Category> queryAllRootLevelCat();
 }
