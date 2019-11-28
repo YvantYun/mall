@@ -4,6 +4,7 @@ import com.yunfeng.enums.YesOrNo;
 import com.yunfeng.pojo.Carousel;
 import com.yunfeng.pojo.Category;
 import com.yunfeng.pojo.vo.CategoryVO;
+import com.yunfeng.pojo.vo.NewItemsVO;
 import com.yunfeng.service.CarouselService;
 import com.yunfeng.service.CategoryService;
 import com.yunfeng.utils.IMOOCJSONResult;
@@ -72,5 +73,18 @@ public class IndexController {
         return IMOOCJSONResult.ok(list);
     }
 
+    @ApiOperation(value = "查询每个一级分类下的最新6条商品数据", notes = "查询每个一级分类下的最新6条商品数据", httpMethod = "GET")
+    @GetMapping("/sixNewItems/{rootCatId}")
+    public IMOOCJSONResult sixNewItems(
+            @ApiParam(name = "rootCatId", value = "一级分类id", required = true)
+            @PathVariable Integer rootCatId) {
+
+        if (rootCatId == null) {
+            return IMOOCJSONResult.errorMsg("分类不存在");
+        }
+
+        List<NewItemsVO> list = categoryService.getSixNewItemsLazy(rootCatId);
+        return IMOOCJSONResult.ok(list);
+    }
 
 }
