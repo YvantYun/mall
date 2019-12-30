@@ -62,15 +62,6 @@ public class MyOrdersServiceImpl extends BaseService implements MyOrdersService 
         return setterPagedGrid(list, page);
     }
 
-//    private PagedGridResult setterPagedGrid(List<?> list, Integer page) {
-//        PageInfo<?> pageList = new PageInfo<>(list);
-//        PagedGridResult grid = new PagedGridResult();
-//        grid.setPage(page);
-//        grid.setRows(list);
-//        grid.setTotal(pageList.getPages());
-//        grid.setRecords(pageList.getTotal());
-//        return grid;
-//    }
 
     @Transactional(propagation=Propagation.REQUIRED)
     @Override
