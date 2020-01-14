@@ -1,10 +1,13 @@
 package com.yunfeng.controller;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.util.IOUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.yunfeng.utils.RedisOperator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -23,8 +26,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/test")
+@ApiIgnore
 public class TestController {
 
+    //@Autowired
+    //private RedisTemplate redisTemplate;
+
+    @Autowired
+    private RedisOperator redisOperator;
 
 
     @GetMapping("/download")
@@ -59,4 +68,41 @@ public class TestController {
         }
         return list;
     }
+
+    @GetMapping("/set")
+    public Object set(String key, String value) {
+        redisOperator.set(key, value);
+        return "ok";
+
+    }
+
+    @PostMapping("/get")
+    public Object get(String key) {
+        return (String)redisOperator.get(key);
+
+    }
+
+    @DeleteMapping("/delete")
+    public Object delete(String key) {
+       redisOperator.del(key);
+       return "ok";
+
+    }
+
+
+    public static void main(String[] args) {
+        String str = "[" +
+                "{\"name\":\"123\",\"path\":\"storage/emulated/0/Android/data/com.zoudukeji.getfilefiles/Download/123.mp4\"}," +
+                "{\"name\":\"789\",\"path\":\"storage/emulated/0/Android/data/com.zoudukeji.getfilefiles/Download/789.mp4\"}," +
+                "{\"name\":\"456\",\"path\":\"storage/emulated/0/Android/data/com.zoudukeji.getfilefiles/Download/456.mp4\"}" +
+                "]";
+
+        JSONArray jsonArray = JSONObject.parseArray(str);
+        //String name = (String)jsonArray.getJSONObject(1).get("name"
+    }
+
+
+
+
+
 }

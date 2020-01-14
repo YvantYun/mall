@@ -1,8 +1,11 @@
 package com.yunfeng.service;
 
 import com.yunfeng.pojo.OrderStatus;
+import com.yunfeng.pojo.bo.ShopcartBO;
 import com.yunfeng.pojo.bo.SubmitOrderBO;
 import com.yunfeng.pojo.vo.OrderVO;
+
+import java.util.List;
 
 public interface OrderService {
 
@@ -11,7 +14,7 @@ public interface OrderService {
      *
      * @param submitOrderBO
      */
-    OrderVO createOrder(SubmitOrderBO submitOrderBO);
+    OrderVO createOrder(List<ShopcartBO> shopcartList,SubmitOrderBO submitOrderBO);
 
     /**
      * 修改订单状态

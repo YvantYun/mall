@@ -8,3 +8,8 @@ spring:
         url: jdbc:mysql://localhost:3306/mall-shop-prod?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
         username: root
         password: yunfeng
+    redis:
+        database: 1
+        host: 139.196.124.187
+        port: 6379
+        password: yunfeng

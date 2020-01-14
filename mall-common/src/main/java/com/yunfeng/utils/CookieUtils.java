@@ -192,7 +192,7 @@ public final class CookieUtils {
      * @param cookieName
      * @param cookieValue
      * @param cookieMaxage	cookie生效的最大秒数
-     * @param isEncode
+     * @param isEncode 是否加密
      */
     private static final void doSetCookie(HttpServletRequest request, HttpServletResponse response,
             String cookieName, String cookieValue, int cookieMaxage, boolean isEncode) {
@@ -202,21 +202,24 @@ public final class CookieUtils {
             } else if (isEncode) {
                 cookieValue = URLEncoder.encode(cookieValue, "utf-8");
             }
-            Cookie cookie = new Cookie(cookieName, cookieValue);
-            if (cookieMaxage > 0)
-                cookie.setMaxAge(cookieMaxage);
-            if (null != request) {// 设置域名的cookie
-            	String domainName = getDomainName(request);
-                logger.info("========== domainName: {} ==========", domainName);
-                if (!"localhost".equals(domainName)) {
-                	cookie.setDomain(domainName);
-                }
-            }
-            cookie.setPath("/");
-            response.addCookie(cookie);
+            setCookieDomain(request, response, cookieName, cookieValue, cookieMaxage);
         } catch (Exception e) {
         	 e.printStackTrace();
         }
+    }
+
+    private static void setCookieDomain(HttpServletRequest request, HttpServletResponse response, String cookieName, String cookieValue, int cookieMaxage) {
+        Cookie cookie = new Cookie(cookieName, cookieValue);
+        if (cookieMaxage > 0)
+            cookie.setMaxAge(cookieMaxage);
+        if (null != request) {// 设置域名的cookie
+            //String domainName = "yvant.top";
+            String domainName = "localhost";
+            logger.info("========== domainName: {} ==========", domainName);
+            cookie.setDomain(domainName);
+        }
+        cookie.setPath("/");
+        response.addCookie(cookie);
     }
 
     /**
@@ -237,18 +240,7 @@ public final class CookieUtils {
             } else {
                 cookieValue = URLEncoder.encode(cookieValue, encodeString);
             }
-            Cookie cookie = new Cookie(cookieName, cookieValue);
-            if (cookieMaxage > 0)
-                cookie.setMaxAge(cookieMaxage);
-            if (null != request) {// 设置域名的cookie
-            	String domainName = getDomainName(request);
-                logger.info("========== domainName: {} ==========", domainName);
-                if (!"localhost".equals(domainName)) {
-                	cookie.setDomain(domainName);
-                }
-            }
-            cookie.setPath("/");
-            response.addCookie(cookie);
+            setCookieDomain(request, response, cookieName, cookieValue, cookieMaxage);
         } catch (Exception e) {
         	 e.printStackTrace();
         }
