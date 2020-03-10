@@ -1,4 +1,4 @@
-package com.yunfeng.config;
+package com.yunfeng.mall.fastdfs.cofig;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +27,7 @@ public class CorsConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedOrigin("http://shop.yvant.top");
         config.addAllowedOrigin("http://center.yvant.top");
+        config.addAllowedOrigin("http://localhost:8080");
         config.addAllowedOrigin("http://localhost:8080");
         config.addAllowedOrigin("*");
         // 2. 设置是否发送cookie信息

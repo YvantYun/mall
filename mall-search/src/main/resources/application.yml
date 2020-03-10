@@ -1,6 +1,5 @@
 server:
-    port: 8088
-
+    port: 8033
 spring:
     datasource:                                     # 数据源配置
         type: com.zaxxer.hikari.HikariDataSource    # 数据源类型:  hikariCP
@@ -8,16 +7,9 @@ spring:
         url: jdbc:mysql://localhost:3306/mall-shop-dev?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
         username: root
         password: root
-    redis:
-#         redis 单机单实例
-        database: 1
-        host: 139.196.124.187
-        port: 6379
-        password: yunfeng
+    data:
+        elasticsearch:
+            cluster-name: my-elasticsearch
+            cluster-nodes: 47.98.118.69:9300
 
-#        sentinel:
-#            master: yvant-master
-#            nodes: 192.168.1.191:26379,192.168.1.192:26379
-#        password: yunfeng
-#        cluster:
-#            nodes:
+

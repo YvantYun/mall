@@ -22,7 +22,7 @@ public class DefaultWorkerIdStrategy implements WorkerIdStrategy {
     public static final WorkerIdStrategy instance = new DefaultWorkerIdStrategy();
 
     private final Properties props =
-            Props.tryProperties("idworker-client.properties", Utils.DOT_IDWORKERS);
+            Props.tryProperties("idworker-client.resource", Utils.DOT_IDWORKERS);
     private final String idWorkerServerUrl =
             props.getProperty("server.address", "http://id.worker.server:18001");
 

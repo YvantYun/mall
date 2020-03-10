@@ -8,14 +8,14 @@ import org.springframework.stereotype.Component;
 
 /**
  * <p>
- *
+ * 定时器任务
  * </p>
  *
  * @author yunfeng
  * @since 2019-11-27
  */
 
-@Component
+//@Component
 public class OrderJob {
 
     @Autowired

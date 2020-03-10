@@ -14,6 +14,7 @@
         <module>mall-mapper</module>
         <module>mall-service</module>
         <module>mall-controller</module>
+        <module>mall-search</module>
     </modules>
 
     <!--

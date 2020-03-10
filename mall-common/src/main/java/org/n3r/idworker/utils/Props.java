@@ -19,7 +19,7 @@ public class Props {
             is = Props.tryResource(propertiesFileName, userHomeBasePath, Silent.ON);
             if (is != null) properties.load(is);
         } catch (IOException e) {
-            log.error("load properties error: {}", e.getMessage());
+            log.error("load resource error: {}", e.getMessage());
         } finally {
             closeQuietly(is);
         }

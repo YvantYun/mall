@@ -3,6 +3,7 @@ package com.yunfeng.controller.center;
 import com.yunfeng.controller.BaseController;
 import com.yunfeng.pojo.Users;
 import com.yunfeng.pojo.bo.center.CenterUserBO;
+import com.yunfeng.pojo.vo.UsersVO;
 import com.yunfeng.resource.FileUpload;
 import com.yunfeng.service.UserService;
 import com.yunfeng.service.center.CenterUserService;
@@ -128,11 +129,12 @@ public class CenterUserController extends BaseController {
         // 更新用户头像到数据库
         Users userResult = centerUserService.updateUserFace(userId, finalUserFaceUrl);
 
-        userResult = setNullProperty(userResult);
-        CookieUtils.setCookie(request, response, "user",
-                JsonUtils.objectToJson(userResult), true);
+        UsersVO usersVO = convertUsersVO(userResult);
 
-        // TODO 后续要改，增加令牌token，会整合进redis，分布式会话
+        CookieUtils.setCookie(request, response, "user",
+                JsonUtils.objectToJson(usersVO), true);
+
+
 
         return IMOOCJSONResult.ok();
     }
@@ -148,8 +150,6 @@ public class CenterUserController extends BaseController {
             BindingResult result,
             HttpServletRequest request, HttpServletResponse response) {
 
-        System.out.println(centerUserBO);
-
         // 判断BindingResult是否保存错误的验证信息，如果有，则直接return
         if (result.hasErrors()) {
             Map<String, String> errorMap = getErrors(result);
@@ -157,12 +157,11 @@ public class CenterUserController extends BaseController {
         }
 
         Users userResult = centerUserService.updateUserInfo(userId, centerUserBO);
+        // 增加用户令牌token
+        UsersVO usersVO = convertUsersVO(userResult);
 
-        userResult = setNullProperty(userResult);
         CookieUtils.setCookie(request, response, "user",
-                JsonUtils.objectToJson(userResult), true);
-
-        // TODO 后续要改，增加令牌token，会整合进redis，分布式会话
+                JsonUtils.objectToJson(usersVO), true);
 
         return IMOOCJSONResult.ok();
     }
@@ -181,14 +180,5 @@ public class CenterUserController extends BaseController {
         return map;
     }
 
-    private Users setNullProperty(Users userResult) {
-        userResult.setPassword(null);
-        userResult.setMobile(null);
-        userResult.setEmail(null);
-        userResult.setCreatedTime(null);
-        userResult.setUpdatedTime(null);
-        userResult.setBirthday(null);
-        return userResult;
-    }
 
 }

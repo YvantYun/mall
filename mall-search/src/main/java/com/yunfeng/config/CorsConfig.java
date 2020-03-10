@@ -28,6 +28,7 @@ public class CorsConfig {
         config.addAllowedOrigin("http://shop.yvant.top");
         config.addAllowedOrigin("http://center.yvant.top");
         config.addAllowedOrigin("http://localhost:8080");
+        config.addAllowedOrigin("http://localhost:8080");
         config.addAllowedOrigin("*");
         // 2. 设置是否发送cookie信息
         config.setAllowCredentials(true);
